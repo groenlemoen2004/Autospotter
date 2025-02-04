@@ -1,0 +1,189 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1d3557;
+    color: white;
+    padding: 1rem 2rem;
+    transition: background-color 0.3s ease;
+}
+
+.header .logo:hover {
+    transform: scale(1.1); /* Slightly enlarge the logo on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a shadow on hover */
+}
+
+.title {
+    font-size: 2.5rem;
+    transition: color 0.3s ease;
+}
+
+.title:hover {
+    color: #f1c40f; /* Change the color on hover */
+}
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1d3557;
+    color: white;
+    padding: 0.5rem 1rem; /* Reduce the padding to make the background border smaller */
+    transition: background-color 0.3s ease;
+}
+
+.header:hover {
+    background-color: #123456; /* Change to a darker shade on hover */
+}
+
+.header .logo {
+    width: 100px; /* Increase the size */
+    height: 100px; /* Increase the size */
+    margin-right: 1rem;
+    border-radius: 50%; /* Make the logo round */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.header .logo:hover {
+    transform: scale(1.1); /* Slightly enlarge the logo on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a shadow on hover */
+}
+
+.title {
+    font-size: 3rem; /* Increase the font size */
+    transition: color 0.3s ease;
+}
+
+.title:hover {
+    color: #f1c40f; /* Change the color on hover */
+}
+
+/* Adjust content when the sidebar is open */
+.container.open-sidebar .main-content {
+    margin-left: 250px; /* Push content to the right */
+}
+
+.main-content {
+    padding: 2rem;
+    background-color: #f8f9fa;
+}
+
+.content-header h1 {
+    color: #1d3557;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.intro-text {
+    font-size: 1.1rem;
+    color: #495057;
+    margin-bottom: 2rem;
+}
+
+.slider-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.slider img {
+    width: 100%;
+    display: none;
+}
+
+.slider img.active {
+    display: block;
+}
+
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+}
+
+.nav-btn:hover {
+    background-color: #1d3557;
+}
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
+
+.indicators {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.section {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.section h2 {
+    color: #1d3557;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.section img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.footer {
+    background-color: #1d3557;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.grab-dreams-btn {
+    display: inline-block;
+    background-color: #1d3557; /* Same color as the title background */
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.grab-dreams-btn:hover {
+    background-color: #007BFF; /* Same color as the sidebar button on hover */
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+.grab-dreams-btn:active {
+    transform: scale(0.95); /* Slightly shrink the button on click */
+}

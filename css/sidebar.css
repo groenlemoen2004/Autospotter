@@ -1,0 +1,105 @@
+/* Basic body and container styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.main-content {
+    padding: 20px;
+    transition: margin-left 0.3s ease; /* Smooth transition for content shift */
+}
+
+.sidebar {
+    position: fixed;
+    left: -250px; /* Sidebar hidden off-screen initially */
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #333;
+    color: white;
+    transition: left 0.3s ease; /* Sidebar sliding in and out */
+    padding-top: 20px;
+    z-index: 999;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 15px;
+    text-align: center;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.sidebar a:hover {
+    background-color: #1caa97;
+}
+
+/* Toggle Button */
+.toggle-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1000; /* Keep the button on top */
+}
+
+.toggle-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Animation for when sidebar is opened */
+.sidebar.open {
+    left: 0; /* Sidebar slides into view */
+}
+
+.main-content.shifted {
+    margin-left: 250px; /* Shift content to the right when sidebar is open */
+}
+
+.content-header h1 {
+    margin-top: 50px;
+    font-size: 28px;
+    color: #333;
+}
+
+.content-header p {
+    font-size: 18px;
+    color: #555;
+}
+/* Animation when the sidebar is active */
+.sidebar.open {
+    left: 0; /* Sidebar will slide in */
+}
+
+/* Adjust content when the sidebar is open */
+.container.open-sidebar .main-content {
+    margin-left: 250px; /* Push content to the right */
+}
+.nav-btn {
+    position: absolute;
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    color: #fff;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10; /* Above the slides */
+    padding: 15px;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
