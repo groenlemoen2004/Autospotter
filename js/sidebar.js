@@ -1,10 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     const toggleBtn = document.getElementById('toggle-btn');
     const sidebar = document.getElementById('sidebar');
-    const mainContent = document.querySelector('.main-content');
+    const header = document.querySelector('.header');
+    const container = document.querySelector('.container');
 
     toggleBtn.addEventListener('click', () => {
         sidebar.classList.toggle('open');
-        mainContent.classList.toggle('shifted');
+        header.classList.toggle('open-sidebar');
+        container.classList.toggle('open-sidebar');
     });
 });

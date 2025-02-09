@@ -1,12 +1,13 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "autospo1_vehicles";
+$host = "localhost";
+$dbname = "vehicles_db";
+$user = "postgres";
+$password = "Estian2004";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Connect to PostgreSQL
+$conn = pg_connect("host=$host dbname=$dbname user=$user password=$password");
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if (!$conn) {
+    die("Connection to the database 'vehicles_db' failed: " . pg_last_error());
 }
 ?>

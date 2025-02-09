@@ -16,7 +16,7 @@
     padding: 20px;
     border-radius: 8px;
     width: 90%;
-    max-width: 800px;
+    max-width: 900px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
@@ -38,50 +38,38 @@
     margin-bottom: 20px;
 }
 
-.vehicle-images {
+/* Image container */
+.image-container {
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
-.vehicle-images img {
-    max-width: 100px;
-    height: auto;
+/* Main Image */
+#mainImage {
+    width: 60%;
+    max-height: 400px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.tab-container {
+/* Thumbnails */
+#thumbnailContainer {
     display: flex;
-    justify-content: space-around;
-    width: 100%;
-    margin-bottom: 20px;
+    flex-direction: column;
+    gap: 10px;
+    margin-left: 20px;
 }
 
-.tab {
-    padding: 10px 20px;
+.thumbnail {
+    width: 80px;
+    height: auto;
     cursor: pointer;
-    background-color: #f1f1f1;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.tab.active {
-    background-color: #007BFF;
-    color: white;
-}
-
-.tab-content {
-    display: none;
-    width: 100%;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-.tab-content p {
-    margin: 10px 0;
-    font-size: 1rem;
-    color: #495057;
+.thumbnail:hover {
+    border: 2px solid #007bff;
 }

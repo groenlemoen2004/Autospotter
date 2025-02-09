@@ -1,5 +1,5 @@
+<!-- filepath: /c:/xampp/htdocs/Autospotter/pages/vehicles.php -->
 <?php
-session_start();
 include '../php/db.php';
 ?>
 <!DOCTYPE html>
@@ -11,98 +11,218 @@ include '../php/db.php';
     <link rel="stylesheet" href="../css/title.css">
     <link rel="stylesheet" href="../css/sidebar.css">
     <link rel="stylesheet" href="../css/vehicles.css">
-    <link rel="stylesheet" href="../css/search.css"> <!-- Include search.css -->
-    <link rel="stylesheet" href="../css/floating-tab.css"> <!-- Include floating-tab.css -->
+    <link rel="stylesheet" href="../css/search.css">
+    <link rel="stylesheet" href="../css/floating-tab.css">
 </head>
 <body>
     <header class="header">
-        <img src="../img/Logo.jpg" alt="Logo" class="logo"> <!-- Logo image -->
-        <h1 class="title">Auto Spotter</h1> <!-- Title -->
+        <img src="../img/Logo.jpg" alt="Logo" class="logo">
+        <h1 class="title">Auto Spotter</h1>
     </header>
-    <?php include '../php/sidebar.php';?>
+    <?php include '../php/sidebar.php'; ?>
 
     <div class="main-content">
         <div class="content-header">
             <h1>Our Vehicles</h1>
-            <p class="intro-text">Discover our wide range of vehicles. Whether you're looking for a family car, a sports car, or an SUV, we have something for everyone.</p>
+            <p class="intro-text">Discover our wide range of vehicles.</p>
         </div>
+
         <div class="filter-container">
-            <form id="searchForm" method="GET" action="">
-                <input type="text" id="makeInput" name="make" placeholder="Make" list="makeList">
-                <datalist id="makeList">
-                    <?php
-                    $makeQuery = "SELECT DISTINCT make FROM vehicle_info";
-                    $makeResult = $conn->query($makeQuery);
-                    while ($makeRow = $makeResult->fetch_assoc()) {
-                        echo '<option value="' . htmlspecialchars($makeRow['make']) . '">';
-                    }
-                    ?>
-                </datalist>
-                <input type="text" id="modelInput" name="model" placeholder="Model" list="modelList">
-                <datalist id="modelList">
-                    <?php
-                    $modelQuery = "SELECT DISTINCT model FROM vehicle_info";
-                    $modelResult = $conn->query($modelQuery);
-                    while ($modelRow = $modelResult->fetch_assoc()) {
-                        echo '<option value="' . htmlspecialchars($modelRow['model']) . '">';
-                    }
-                    ?>
-                </datalist>
-                <input type="number" id="yearInput" name="year" placeholder="Year" min="1900" max="<?php echo date('Y'); ?>">
-                <label for="priceRange">Max Price: <span id="priceValue">R 500000</span></label>
-                <input type="range" id="priceRange" name="price" min="0" max="1000000" step="1000" value="500000" oninput="document.getElementById('priceValue').innerText = 'R ' + this.value">
-                
-                <label for="mileageRange">Max Mileage: <span id="mileageValue">50000 km</span></label>
-                <input type="range" id="mileageRange" name="mileage" min="0" max="1000000" step="1000" value="50000" oninput="document.getElementById('mileageValue').innerText = this.value + ' km'">
+            <form id="searchForm" method="GET">
+                <div class="form-group">
+                    <label for="makeSelect">Make</label>
+                    <select id="makeSelect" name="make" onchange="updateModels()">
+                        <option value="">Select a Make</option>
+                        <?php
+                        $makeQuery = "SELECT DISTINCT make FROM vehicles ORDER BY make";
+                        $makeResult = pg_query($conn, $makeQuery);
+                        if ($makeResult) {
+                            while ($makeRow = pg_fetch_assoc($makeResult)) {
+                                echo '<option value="' . htmlspecialchars($makeRow['make']) . '">' . htmlspecialchars($makeRow['make']) . '</option>';
+                            }
+                        } else {
+                            echo '<option value="">No makes found</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="modelInput">Model</label>
+                    <input type="text" id="modelInput" name="model" placeholder="Model" list="modelList">
+                    <datalist id="modelList">
+                        <?php
+                        $selectedMake = htmlspecialchars($_GET['make'] ?? '');
+                        $modelQuery = "SELECT DISTINCT model FROM vehicles";
+                        if ($selectedMake) {
+                            $modelQuery .= " WHERE make = '" . pg_escape_string($conn, $selectedMake) . "'";
+                        }
+                        $modelResult = pg_query($conn, $modelQuery);
+                        if ($modelResult) {
+                            while ($modelRow = pg_fetch_assoc($modelResult)) {
+                                echo '<option value="' . htmlspecialchars($modelRow['model']) . '">';
+                            }
+                        }
+                        ?>
+                    </datalist>
+                </div>
+
+                <div class="range-container">
+                    <label for="priceRange">Price</label>
+                    <input type="range" id="priceRange" name="price" min="0" max="1000000" step="10000" oninput="document.getElementById('priceValue').textContent = 'R' + this.value">
+                    <span id="priceValue" class="range-value">R0</span>
+                </div>
+
+                <div class="range-container">
+                    <label for="mileageRange">Mileage</label>
+                    <input type="range" id="mileageRange" name="mileage" min="0" max="500000" step="1000" oninput="document.getElementById('mileageValue').textContent = this.value + ' km'">
+                    <span id="mileageValue" class="range-value">0 km</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="colourInput">Colour</label>
+                    <input type="text" id="colourInput" name="colour" placeholder="Colour" list="colourList">
+                    <datalist id="colourList">
+                        <?php
+                        $colourQuery = "SELECT DISTINCT vehicle_colour AS colour FROM vehicle_info";
+                        $colourResult = pg_query($conn, $colourQuery);
+                        if ($colourResult) {
+                            while ($colourRow = pg_fetch_assoc($colourResult)) {
+                                echo '<option value="' . htmlspecialchars($colourRow['colour']) . '">';
+                            }
+                        }
+                        ?>
+                    </datalist>
+                </div>
+
+                <div class="form-group">
+                    <label for="transmissionInput">Transmission</label>
+                    <input type="text" id="transmissionInput" name="transmission" placeholder="Transmission" list="transmissionList">
+                    <datalist id="transmissionList">
+                        <?php
+                        $transmissionQuery = "SELECT DISTINCT vehicle_transmission AS transmission FROM vehicle_info";
+                        $transmissionResult = pg_query($conn, $transmissionQuery);
+                        if ($transmissionResult) {
+                            while ($transmissionRow = pg_fetch_assoc($transmissionResult)) {
+                                echo '<option value="' . htmlspecialchars($transmissionRow['transmission']) . '">';
+                            }
+                        }
+                        ?>
+                    </datalist>
+                </div>
+
+                <div class="form-group">
+                    <label for="fuelTypeInput">Fuel Type</label>
+                    <input type="text" id="fuelTypeInput" name="fuel_type" placeholder="Fuel Type" list="fuelTypeList">
+                    <datalist id="fuelTypeList">
+                        <?php
+                        $fuelTypeQuery = "SELECT DISTINCT vehicle_fuel_type AS fuel_type FROM vehicle_info";
+                        $fuelTypeResult = pg_query($conn, $fuelTypeQuery);
+                        if ($fuelTypeResult) {
+                            while ($fuelTypeRow = pg_fetch_assoc($fuelTypeResult)) {
+                                echo '<option value="' . htmlspecialchars($fuelTypeRow['fuel_type']) . '">';
+                            }
+                        }
+                        ?>
+                    </datalist>
+                </div>
+
+                <div class="form-group">
+                    <label for="interiorInput">Interior</label>
+                    <input type="text" id="interiorInput" name="interior" placeholder="Interior" list="interiorList">
+                    <datalist id="interiorList">
+                        <?php
+                        $interiorQuery = "SELECT DISTINCT vehicle_interior AS interior FROM vehicle_info";
+                        $interiorResult = pg_query($conn, $interiorQuery);
+                        if ($interiorResult) {
+                            while ($interiorRow = pg_fetch_assoc($interiorResult)) {
+                                echo '<option value="' . htmlspecialchars($interiorRow['interior']) . '">';
+                            }
+                        }
+                        ?>
+                    </datalist>
+                </div>
+
+                <div class="form-group">
+                    <label for="bodyStyleInput">Body Style</label>
+                    <input type="text" id="bodyStyleInput" name="body_style" placeholder="Body Style" list="bodyStyleList">
+                    <datalist id="bodyStyleList">
+                        <?php
+                        $bodyStyleQuery = "SELECT DISTINCT vehicle_body_style AS body_style FROM vehicle_info";
+                        $bodyStyleResult = pg_query($conn, $bodyStyleQuery);
+                        if ($bodyStyleResult) {
+                            while ($bodyStyleRow = pg_fetch_assoc($bodyStyleResult)) {
+                                echo '<option value="' . htmlspecialchars($bodyStyleRow['body_style']) . '">';
+                            }
+                        }
+                        ?>
+                    </datalist>
+                </div>
+
                 <button type="submit" id="searchButton">Search</button>
             </form>
         </div>
 
         <div id="vehicleResults">
             <?php
-            $make = isset($_GET['make']) ? $_GET['make'] : '';
-            $model = isset($_GET['model']) ? $_GET['model'] : '';
-            $year = isset($_GET['year']) ? $_GET['year'] : '';
-            $price = isset($_GET['price']) ? $_GET['price'] : '';
-            $mileage = isset($_GET['mileage']) ? $_GET['mileage'] : '';
+            // Filter vehicles based on the form input
+            $make = isset($_GET['make']) ? pg_escape_string($conn, $_GET['make']) : '';
+            $model = isset($_GET['model']) ? pg_escape_string($conn, $_GET['model']) : '';
+            $colour = isset($_GET['colour']) ? pg_escape_string($conn, $_GET['colour']) : '';
+            $year_model = isset($_GET['year_model']) ? pg_escape_string($conn, $_GET['year_model']) : '';
+            $odometer = isset($_GET['mileage']) ? pg_escape_string($conn, $_GET['mileage']) : '';
+            $selling_price = isset($_GET['price']) ? pg_escape_string($conn, $_GET['price']) : '';
+            $body_style = isset($_GET['body_style']) ? pg_escape_string($conn, $_GET['body_style']) : '';
+            $fuel_type = isset($_GET['fuel_type']) ? pg_escape_string($conn, $_GET['fuel_type']) : '';
+            $interior = isset($_GET['interior']) ? pg_escape_string($conn, $_GET['interior']) : '';
+            $transmission = isset($_GET['transmission']) ? pg_escape_string($conn, $_GET['transmission']) : '';
 
-            $query = "SELECT * FROM vehicle_info WHERE 1=1";
+            $query = "SELECT * FROM vehicles WHERE true";
+            
             if ($make) {
-                $query .= " AND make LIKE '%" . $conn->real_escape_string($make) . "%'";
+                $query .= " AND make ILIKE '%$make%'";
             }
             if ($model) {
-                $query .= " AND model LIKE '%" . $conn->real_escape_string($model) . "%'";
+                $query .= " AND model ILIKE '%$model%'";
             }
-            if ($year) {
-                $query .= " AND year = " . $conn->real_escape_string($year);
+            if ($colour) {
+                $query .= " AND colour ILIKE '%$colour%'";
             }
-            if ($price) {
-                $query .= " AND price <= " . $conn->real_escape_string($price);
+            if ($year_model) {
+                $query .= " AND year_model = $year_model";
             }
-            if ($mileage) {
-                $query .= " AND mileage <= " . $conn->real_escape_string($mileage);
+            if ($odometer) {
+                $query .= " AND odometer <= $odometer";
+            }
+            if ($selling_price) {
+                $query .= " AND selling_price <= $selling_price";
+            }
+            if ($body_style) {
+                $query .= " AND body_style ILIKE '%$body_style%'";
+            }
+            if ($fuel_type) {
+                $query .= " AND fuel_type ILIKE '%$fuel_type%'";
+            }
+            if ($interior) {
+                $query .= " AND interior ILIKE '%$interior%'";
+            }
+            if ($transmission) {
+                $query .= " AND transmission ILIKE '%$transmission%'";
             }
 
-            $vehicleResult = $conn->query($query);
-            if ($vehicleResult->num_rows > 0) {
-                while ($vehicleRow = $vehicleResult->fetch_assoc()) {
-                    $vehicleId = isset($vehicleRow['id']) ? htmlspecialchars($vehicleRow['id']) : '';
-                    $vehicleImage = isset($vehicleRow['image']) ? htmlspecialchars($vehicleRow['image']) : 'default.jpg';
-                    $vehicleMake = isset($vehicleRow['make']) ? htmlspecialchars($vehicleRow['make']) : 'Unknown';
-                    $vehicleModel = isset($vehicleRow['model']) ? htmlspecialchars($vehicleRow['model']) : 'Unknown';
-                    $vehicleYear = isset($vehicleRow['year']) ? htmlspecialchars($vehicleRow['year']) : 'Unknown';
-                    $vehiclePrice = isset($vehicleRow['price']) ? number_format((float)$vehicleRow['price'], 2) : '0.00';
-                    $vehicleMileage = isset($vehicleRow['mileage']) ? number_format((float)$vehicleRow['mileage']) : '0';
-
-                    echo '<div class="vehicle-card" data-id="' . $vehicleId . '">';
-                    echo '<img src="../img/vehicles/' . ($vehicleImage !== 'default.jpg' ? $vehicleImage : 'Logo.jpg') . '" alt="' . $vehicleMake . ' ' . $vehicleModel . '" class="vehicle-image">';
-                    echo '<div class="vehicle-details">';
-                    echo '<h2>' . $vehicleMake . ' ' . $vehicleModel . '</h2>';
-                    echo '<p>Year: ' . $vehicleYear . '</p>';
-                    echo '<p>Price: R ' . $vehiclePrice . '</p>';
-                    echo '<p>Mileage: ' . $vehicleMileage . ' km</p>';
-                    echo '</div>';
-                    echo '<button class="view-button">View</button>';
+            // Execute query and display results
+            $vehicleResult = pg_query($conn, $query);
+            if (pg_num_rows($vehicleResult) > 0) {
+                while ($vehicleRow = pg_fetch_assoc($vehicleResult)) {
+                    echo '<div class="vehicle-card">';
+                    $stockNumber = htmlspecialchars($vehicleRow['stock_number']);
+                    $imagePath = glob("../images/$stockNumber/{$stockNumber}_*.jpg")[0];
+                    echo '<img  class="vehicle-image" src="' . $imagePath . '" alt="' . htmlspecialchars($vehicleRow['make']) . ' ' . htmlspecialchars($vehicleRow['model']) . '">';
+                    echo '<h3>' . htmlspecialchars($vehicleRow['make']) . ' ' . htmlspecialchars($vehicleRow['model']) . '</h3>';
+                    echo '<p>Year: ' . htmlspecialchars($vehicleRow['year_model']) . '</p>';
+                    echo '<p>Odometer: ' . htmlspecialchars($vehicleRow['odometer']) . ' km</p>';
+                    echo '<p>Price: R' . htmlspecialchars($vehicleRow['selling_price']) . '</p>';
+                    echo '<button class="view-button" onclick="viewDetails(' . htmlspecialchars($vehicleRow['stock_number']) . ')">View Details</button>';
                     echo '</div>';
                 }
             } else {
@@ -112,7 +232,6 @@ include '../php/db.php';
         </div>
     </div>
 
-    <!-- Floating Tab -->
     <div id="floatingTab" class="floating-tab">
         <div class="floating-tab-content">
             <span class="close-btn" id="closeTab">&times;</span>
@@ -131,7 +250,9 @@ include '../php/db.php';
     </div>
 
     <script src="../js/sidebar.js"></script>
-    <script src="../js/search.js"></script>
     <script src="../js/floating-tab.js"></script>
 </body>
+<footer>
+    <p>&copy; 2025 AutoSpotter.co.za. All Rights Reserved.</p>
+</footer>
 </html>

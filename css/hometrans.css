@@ -1,190 +1,66 @@
-/* Basic body and container styling */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
-
 .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 100vw;
     height: 100vh;
     overflow: hidden;
-    background: linear-gradient(135deg, #4facfe, #00f2fe);
-}
-
-/* Center the slider container and h1 */
-.main-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-}
-
-.content-header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-/* Center the slider container */
-.slider-container {
     position: relative;
-    width: 100%;
-    max-width: 800px;
-    margin: 20px auto; /* Center horizontally */
+}
+
+.slider-container {
+    width: 100vw;
+    height: 100vh;
     overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
 .slider {
     display: flex;
-    margin: 0 auto;
-    justify-content: center;
-    align-items: center;
-    position: relative;
     width: 100%;
-    height: 400px; /* Adjust based on your preference */
-    overflow: hidden;
-    background: #f0f0f0; /* Fallback background */
+    height: 100vh;
+    position: absolute;
+    transition: transform 1s ease-in-out;
 }
 
 .slider img {
-    width: 100%;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
+
+/* Remove buttons */
+.nav-btn {
     display: none;
 }
 
-.slider img.active {
-    display: block;
-}
-
-/* Individual slides */
-.slide {
-    width: 100%;
-    height: 100%;
+/* Heading over slider */
+.content-header {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Add shadow effect */
-}
-
-/* Center image inside the slide */
-.slide img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain; /* Ensures images are scaled to fit while keeping their aspect ratio */
-}
-
-/* Active slide */
-.slide.active {
-    opacity: 1;
-    position: relative;
-    z-index: 1;
-}
-
-.nav-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
     color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
+    text-align: center;
+    font-size: 8rem;
+    text-shadow: 2px 2px 10px rgba(39, 179, 184, 0.5);
     z-index: 10;
-    border-radius: 50%;
 }
 
-.nav-btn:hover {
-    background-color: #1d3557;
-}
-
-.prev-btn {
-    left: 10px;
-}
-
-.next-btn {
-    right: 10px;
-}
-
-/* Indicators */
-.indicators {
-    text-align: center;
-    margin-top: 10px;
-}
-
-.indicators button {
-    width: 12px;
-    height: 12px;
-    background: rgba(255, 255, 255, 0.7);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.indicators button.active {
-    background: #fff;
-}
-
-.section-title {
-    font-size: 1.8rem;
-    color: #1d3557;
-    margin: 20px 0;
-    text-align: center;
-}
-
-.vehicle-list {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.vehicle-list li {
-    background-color: white;
-    margin: 10px;
-    padding: 10px 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-size: 1rem;
-    color: #333;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.vehicle-list li:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.divider {
-    width: 80%;
-    border: 1px solid #ccc;
-    margin: 20px auto;
-}
-
+/* Image gallery styles */
 .image-gallery {
     display: flex;
     justify-content: center;
     gap: 20px;
     margin: 20px 0;
+    flex-wrap: wrap;
 }
 
 .image-item {
     text-align: center;
+    width: 300px; /* Set a fixed width */
+    margin: 10px;
 }
 
 .gallery-image {
-    width: 300px; /* Set a fixed width */
+    width: 100%; /* Ensure the image covers the entire area */
     height: 200px; /* Set a fixed height */
     object-fit: cover; /* Ensure the image covers the entire area */
     border-radius: 8px;
@@ -207,36 +83,57 @@ body {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Enhanced styles for h1 and intro text */
-.content-header h1 {
-    font-size: 2.5rem;
-    color: #1d3557;
-    margin-bottom: 10px;
+/* Vehicle list styles */
+.vehicle-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
 }
 
-.intro-text {
-    font-size: 1.2rem;
-    color: #495057;
-    max-width: 800px;
-    margin: 0 auto;
-    line-height: 1.6;
+.vehicle-list li {
+    background-color: white;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    color: #333;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 200px; /* Set a fixed width */
+    text-align: center;
 }
 
+.vehicle-list li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Grab Your Dreams button styles */
 .grab-dreams-btn {
     display: inline-block;
-    background-color: #1d3557; /* Same color as the title background */
-    color: white;
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    margin-top: 20px;
+    background-color: #1d3557; /* Button background color */
+    color: white; /* Button text color */
+    padding: 15px 30px; /* Button padding */
+    font-size: 1.2rem; /* Button font size */
+    border: none; /* Remove border */
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    text-decoration: none; /* Remove underline */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+    margin-top: 20px; /* Margin at the top */
+    text-align: center; /* Center text */
 }
 
 .grab-dreams-btn:hover {
-    background-color: #007BFF; /* Same color as the sidebar button on hover */
+    background-color: #007BFF; /* Background color on hover */
     transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+.grab-dreams-btn:active {
+    background-color: #0056b3; /* Background color on click */
+    transform: scale(0.95); /* Slightly shrink the button on click */
 }
