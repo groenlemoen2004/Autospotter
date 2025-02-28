@@ -1,0 +1,220 @@
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+.main-contact {
+    margin-left: 250px;
+    transition: margin-left var(--transition-speed) ease-in-out;
+    padding: 20px;
+}
+
+header .active{
+    margin-left:80px;
+}
+
+.main-contact.active {
+    margin-left: 70px;
+    transition: margin-left var(--transition-speed) ease-in-out;
+}
+
+/* Contact Form Styling */
+.contact-form {
+    background-color: var(--secondary-color);
+    padding: 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form h2 {
+    margin-top: 0;
+    color: var(--text-color);
+    font-size: 28px;
+    text-align: center;
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Adds spacing between elements */
+}
+
+.contact-form label {
+    color: var(--color-text);
+    font-weight: bold;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%; /* Make all fields the same width */
+    padding: 12px; /* Consistent padding */
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    height: 50px; /* Set a uniform height */
+}
+
+.contact-form textarea {
+    height: 120px; /* Slightly larger for text areas */
+    resize: vertical;
+}
+
+/* Make buttons smaller */
+.contact-form button,
+.contact-form .home-button {
+    display: block;
+    width: 100%;
+    padding: 10px; /* Reduced padding for smaller size */
+    background-color: var(--button-background);
+    color: var(--button-text);
+    border: none;
+    border-radius: 6px;
+    font-size: 16px; /* Reduced font size */
+    text-align: center;
+    cursor: pointer;
+    transition: background-color var(--transition-speed);
+    font-weight: bold;
+}
+
+.contact-form button:hover,
+.contact-form .home-button:hover {
+    background-color: var(--accent-color);
+}
+
+/* Meet the Team Section */
+.meet-the-team {
+    background-color: var(--secondary-color);
+    padding: 20px;
+    border-radius: 40px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.meet-the-team h2 {
+    margin-top: 0;
+    color: var(--text-color);
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* Style each team member */
+.team-member {
+    display: flex;
+    flex-direction: column;  /* Stack items vertically */
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: var(--background-color);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 300px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.team-member:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Profile picture styling */
+.team-member img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    border: 3px solid var(--primary-color);
+}
+
+/* Name styling */
+.team-member h3 {
+    margin: 10px 0 5px 0;  /* Add space around */
+    color: var(--primary-color);
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* Description styling */
+.team-member p {
+    color: var(--text-color);
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 0 10px;
+    max-width: 250px;
+}
+
+
+@media screen and (max-width: 1024px) {
+    main {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    .contact-form {
+        padding: 20px;
+    }
+
+    .contact-form h2 {
+        font-size: 24px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .contact-form {
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    .contact-form h2 {
+        font-size: 22px;
+    }
+
+    .contact-form button,
+    .contact-form .home-button {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .team-member {
+        flex-direction: column;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .team-member img {
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .contact-form {
+        padding: 10px;
+    }
+
+    .contact-form h2 {
+        font-size: 20px;
+    }
+
+    .contact-form button,
+    .contact-form .home-button {
+        padding: 6px;
+        font-size: 14px;
+    }
+
+    .team-member h3 {
+        font-size: 18px;
+    }
+
+    .team-member p {
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,112 @@
+header {
+    margin-left: 250px;
+    transition: margin-left var(--transition-speed) ease-in-out;
+    background-color: var(--header-background);
+    padding: 20px 40px;
+    border-bottom: 1px solid var(--border-color);
+    border-radius: 10px;
+    height: 80px; /* Added height property */
+}
+
+.header-container .logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.header-container .logo-container img {
+    width: 90px; /* Adjust the size as needed */
+    height: 90px; /* Ensure the height matches the width for a round shape */
+    border-radius: 50%; /* Makes the image round */
+    object-fit: cover; /* Ensures the image covers the container without distortion */
+    margin-left: 10px; /* Adds some space between the text and the image */
+}
+
+header.active {
+    margin-left: 50px;
+    transition: margin-left var(--transition-speed) ease-in-out;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%; /* Ensure the container takes the full height of the header */
+}
+
+.header-container .logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.header-container nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.header-container nav ul li a {
+    font-size: 1rem;
+    color: var(--text-color);
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color var(--transition-speed);
+}
+
+.header-container nav ul li a:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Theme toggle button styling */
+.theme-toggle a {
+    margin-left: 20px;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    border: 1px solid var(--primary-color);
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+.theme-toggle a:hover {
+    background-color: var(--primary-color);
+    color: var(--button-text);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    header {
+        margin-left: 0; /* Remove margin to use full width */
+        padding: 10px 15px;
+        height: auto;
+    }
+
+    .header-container {
+        flex-direction: column; /* Stack elements */
+        align-items: center;
+        text-align: center;
+    }
+
+    .header-container .logo-container {
+        flex-direction: row; /* Ensure logo is on left side of name */
+        justify-content: center;
+    }
+
+    .header-container .logo {
+        font-size: 1.2rem; /* Adjusted font size */
+    }
+
+    .header-container nav ul {
+        gap: 10px; /* Reduce spacing */
+    }
+
+    .header-container nav ul li a {
+        font-size: 0.8rem; /* Smaller text */
+        padding: 5px 8px;
+    }
+
+    .theme-toggle a {
+        font-size: 0.7rem;
+        padding: 4px 8px;
+    }
+}

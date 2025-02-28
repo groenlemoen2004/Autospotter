@@ -1,96 +1,83 @@
+<?php
+// Start the session at the beginning
+session_start();
+
+// Check if a theme is passed in the URL (e.g., ?theme=dark) and store it in the session
+if (isset($_GET['theme'])) {
+    $_SESSION['theme'] = $_GET['theme'];
+}
+
+// Default to "light" if no theme is set in the session
+$theme = isset($_SESSION['theme']) ? $_SESSION['theme'] : 'light';
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="<?php echo $theme; ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoSpotter</title>
-    <link rel="stylesheet" href="css/hometrans.css">
-    <link rel="stylesheet" href="css/title.css">
+    <title>AutoSpotters - Home</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/root.css">
+    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/header.css">
     <script defer src="js/sidebar.js"></script>
     <script defer src="js/slider.js"></script>
 </head>
-<body>
+<body id="home">
+    <?php include 'php/header.php'; ?>
+    <?php include 'php/sidebar.php'; ?>
+    <main>
+        <section id="hero">
+            <div class="hero-content">
+                <h1>Welcome to AutoSpotter</h1>
+                <p>Your ultimate destination for quality vehicles and top-notch services.</p>
+                <button onclick="location.href='pages/vehicles.php'">Explore Vehicles</button>
+            </div>
+        </section>
+        <section id="slider">
+            <div class="slider-container">
+            <div class="slide active">
+                <img src="img/pages/luxury.avif" alt="Luxury Collection">
+                <div class="image-overlay"><h2>Luxury Collection</h2>
+                <p>Discover our exclusive range of luxury vehicles.</p>
+            </div>
+            </div>
+            <div class="slide">
+                <img src="img/pages/family.jpg" alt="Family Vehicles">
+                <div class="image-overlay"><h2>Family Vehicles</h2>
+                <p>Safe, spacious, and perfect for family adventures.</p>
+            </div>
+            </div>
+            <div class="slide">
+                <img src="img/pages/eco-friendly.avif" alt="Eco-Friendly Models">
+                <div class="image-overlay"><h2>Eco-Friendly Models</h2>
+                <p>Experience innovation with our eco-friendly options.</p>
+                </div>
+            </div>
+            </div>
+            <button id="prevSlide">Previous</button>
+            <button id="nextSlide">Next</button>
+        </section>
 
-<!-- Header -->
-<header class="header">
-    <img src="img/Logo.jpg" alt="AutoSpotter Logo" class="logo">
-    <h1 class="title">AutoSpotter</h1>
-</header>
+        <section id="about">
+            <h2>About AutoSpotter</h2>
+            <p>
+                At AutoSpotter, we offer a comprehensive marketplace experience. 
+                Whether you're in the market for a new car, financing options, or service solutions, 
+                our platform is designed to guide you every step of the way.
+            </p>
+        </section>
+        <section id="testimonials">
+            <h2>What Our Customers Say</h2>
+            <div class="testimonial">
+                <p>"AutoSpotter made buying my car a breeze. Excellent service!" - Alex</p>
+            </div>
+            <div class="testimonial">
+                <p>"I found the perfect family car and great financing options." - Taylor</p>
+            </div>
+        </section>
+    </main>
 
-<!-- Sidebar -->
-<button id="toggle-btn" class="toggle-btn">☰</button>
-<nav id="sidebar" class="sidebar">
-    <a href="index.php">Home</a>
-    <a href="pages/vehicles.php">Search</a>
-    <a href="pages/about.php">About Us</a>
-</nav>
-
-<!-- Slider Section -->
-<div class="container">
-    <div class="slider-container">
-        <div class="slider">
-            <img src="img/slider.avif" class="active">
-            <img src="img/slider2.avif">
-            <img src="img/slider3.avif">
-            <img src="img/slider4.avif">
-        </div>
-    </div>
-    <div class="content-header">
-        <h1>Welcome To AutoSpotter</h1>
-        <p>The place where dreams turn to reality</p>
-    </div>
-</div>
-
-<!-- Content Section -->
-<div class="main-content">
-    <hr class="divider">
-    <h1 class="section-title">All Types of Vehicles</h1>
-    <hr class="divider">
-    <ul class="vehicle-list">
-        <li>Nissan</li>
-        <li>Toyota</li>
-        <li>BMW</li>
-        <li>Mercedes-Benz</li>
-        <li>Volkswagen</li>
-        <li>Ford</li>
-        <li>Hyundai</li>
-        <li>Renault</li>
-        <li>Peugeot</li>
-        <li>Opel</li>
-        <li>Isuzu</li>
-        <li>Land Rover</li>
-        <li>Jeep</li>
-        <li>Volvo</li>
-        <li>Jaeco</li>
-        <li>Haval</li>
-        <li>Cherry</li>
-        <li>Audi</li>
-    </ul>
-    <hr class="divider">
-    <h1>Where we put the customer first</h1>
-    <hr class="divider">
-    <div class="image-gallery">
-        <div class="image-item">
-            <img src="img/gallery.jpeg" alt="Gallery Image 1" class="gallery-image">
-            <p class="image-text">With customer service that will leave you smiling</p>
-        </div>
-        <div class="image-item">
-            <img src="img/gallery2.jpg" alt="Gallery Image 2" class="gallery-image">
-            <p class="image-text">We ensure you get the car that your heart desires</p>
-        </div>
-        <div class="image-item">
-            <img src="img/gallery3.jpeg" alt="Gallery Image 3" class="gallery-image">
-            <p class="image-text">We have over 30 years of experience in the automotive industry</p>
-        </div>
-    </div>
-    <a href="pages/vehicles.php" class="grab-dreams-btn">Grab Your Dreams!</a>
-</div>
-
-<!-- Footer -->
-<footer>
-    <p>&copy; 2025 AutoSpotter.co.za. All Rights Reserved.</p>
-</footer>
-<script src="../js/sidebar.js"></script>
 </body>
 </html>

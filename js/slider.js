@@ -1,28 +1,34 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const slides = document.querySelectorAll('.slide');
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
-    const indicators = document.querySelector('.indicators');
+document.addEventListener("DOMContentLoaded", function() {
+    const slides = document.querySelectorAll("#slider .slide");
     let currentSlide = 0;
+    const totalSlides = slides.length;
+    const nextButton = document.getElementById("nextSlide");
+    const prevButton = document.getElementById("prevSlide");
 
-    function showSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.classList.toggle('active', i === index);
+    // Function to update the slide visibility by toggling the 'active' class
+    function updateSlides() {
+        slides.forEach((slide, index) => {
+            if (index === currentSlide) {
+                slide.classList.add("active");
+            } else {
+                slide.classList.remove("active");
+            }
         });
     }
 
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % slides.length;
-        showSlide(currentSlide);
-    }
+    nextButton.addEventListener("click", function() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateSlides();
+    });
 
-    function prevSlide() {
-        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-        showSlide(currentSlide);
-    }
+    prevButton.addEventListener("click", function() {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        updateSlides();
+    });
 
-    nextBtn.addEventListener('click', nextSlide);
-    prevBtn.addEventListener('click', prevSlide);
-
-    showSlide(currentSlide);
+    // Set interval to automatically change slides every 3 seconds
+    setInterval(function() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateSlides();
+    }, 3000);
 });

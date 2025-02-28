@@ -1,0 +1,132 @@
+/* Container for the vehicle finance modal - hidden by default */
+.vehicle-finance-modal {
+    display: none; /* Hidden until shown via JavaScript */
+    position: fixed;
+    z-index: 1100; /* Adjust z-index as needed */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enables scrolling if needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    padding: 40px 0;
+}
+
+/* Modal content box */
+.vehicle-finance-modal-content {
+    background-color: var(--background-color);
+    margin: auto;
+    padding: 20px 30px;
+    border: 1px solid var(--border-color);
+    width: 90%;
+    max-width: 600px;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* Close button styling */
+.vehicle-finance-modal-close {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.vehicle-finance-modal-close:hover,
+.vehicle-finance-modal-close:focus {
+    color: var(--accent-color);
+}
+
+/* Modal heading styling */
+.vehicle-finance-modal-content h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+/* Finance form styling */
+.vehicle-finance-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Finance form group styling */
+.vehicle-finance-form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.vehicle-finance-form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: var(--text-color);
+}
+
+.vehicle-finance-form-group input,
+.vehicle-finance-form-group textarea {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.vehicle-finance-form-group input:focus,
+.vehicle-finance-form-group textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/* Submit button styling */
+.vehicle-finance-submit-btn {
+    padding: 12px;
+    background-color: var(--button-background);
+    border: none;
+    border-radius: 4px;
+    color: var(--button-text);
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.vehicle-finance-submit-btn:hover {
+    background-color: var(--accent-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .vehicle-finance-modal-content {
+        width: 95%;
+        padding: 15px 20px;
+        border-radius: 6px;
+    }
+
+    .vehicle-finance-modal-close {
+        font-size: 24px;
+        right: 10px;
+        top: 8px;
+    }
+
+    .vehicle-finance-modal-content h2 {
+        font-size: 1.2rem;
+    }
+
+    .vehicle-finance-form-group label {
+        font-size: 0.9rem;
+    }
+
+    .vehicle-finance-form-group input,
+    .vehicle-finance-form-group textarea {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    .vehicle-finance-submit-btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+}

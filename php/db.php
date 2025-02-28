@@ -1,13 +1,20 @@
 <?php
-$host = "localhost";
-$dbname = "vehicles_db";
-$user = "postgres";
-$password = "Estian2004";
+$host = 'localhost';
+$db = 'vehicles_db';
+$user = 'Estian';
+$password = 'Estian2004';
+$port = '5432';
 
-// Connect to PostgreSQL
-$conn = pg_connect("host=$host dbname=$dbname user=$user password=$password");
+$dsn = "pgsql:host=$host;port=$port;dbname=$db;user=$user;password=$password";
 
-if (!$conn) {
-    die("Connection to the database 'vehicles_db' failed: " . pg_last_error());
+try {
+    // Create a PDO instance
+    $pdo = new PDO($dsn);
+
+    // Set error mode to exception
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+} catch (PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
 }
 ?>

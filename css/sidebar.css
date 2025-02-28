@@ -1,53 +1,144 @@
-.sidebar {
+
+#sidebar {
     position: fixed;
     top: 0;
-    left: -250px; /* Initially hidden */
+    left: 0;
     width: 250px;
     height: 100%;
-    background-color: #1d3557;
-    color: white;
-    transition: left 0.3s ease;
-    z-index: 10000; /* Ensure sidebar is above other elements */
-    padding-top: 60px; /* Add padding to the top */
-}
-
-.sidebar.open {
-    left: 0; /* Show sidebar */
-}
-
-.sidebar a {
-    display: block;
-    color: white;
-    padding: 16px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-}
-
-.sidebar a:hover {
-    background-color: #007BFF;
-}
-
-.main-content {
-    transition: margin-left 0.3s ease;
-}
-
-.main-content.shifted {
-    margin-left: 250px;
-}
-
-.toggle-btn {
-    position: fixed;
-    top: 40px;
-    left: 40px;
-    background-color: #1d3557;
-    color: white;
+    background-color: var(--sidebar-background);
+    padding-left: 20px;  
+    padding-top: 20px;
+    transform: translateX(0);
+    transition: transform var(--transition-speed,5);
+    overflow-y: auto;
+    z-index: 1000;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  #sidebar.active {
+    transform: translateX(-80%);
+  }
+  
+  #sidebar button#toggleSidebar {
+    background: none;
     border: none;
-    padding: 10px 15px;
+    color: var(--text-color);
+    font-size: 1.5rem;
     cursor: pointer;
-    z-index: 10001; /* Ensure toggle button is above other elements */
-    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+    margin-left: 130px;
+    padding-left: 20px;
+  }
+  
+  #sidebar nav ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  #sidebar nav ul li {
+    margin: 15px 0;
+  }
+  
+  #sidebar nav ul li a {
+    flex-grow: 1;
+    font-size: 1.1rem;
+    color: var(--text-color);
+    padding: 6px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 4px;
+    transition: background-color var(--transition-speed);
+    background-color: var(--accent-color);
+}
+  
+  #sidebar nav ul li a:hover {
+    background-color: var(--primary-color);
+    color: var(--button-text);
+  }
+  
+  .material-icons {
+    font-size: 1.5rem;
+    margin-left: auto;
+  }
+
+  #sidebar nav ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0;
 }
 
-.toggle-btn:hover {
-    background-color: #007BFF;
+.material-icons {
+    font-size: 1.5rem;
+    margin-left: 10px;
+}
+
+/* Responsive adjustments for mobile devices */
+@media (max-width: 768px) {
+  /* Sidebar Styling */
+  #sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 80%;
+      height: 100vh; /* Full height */
+      background-color: var(--sidebar-background);
+      transform: translateX(-100%); /* Hidden by default */
+      border-radius: 0;
+      padding: 20px;
+      transition: transform 0.3s ease-in-out;
+      transition: margin-left var(--transition-speed) ease-in-out;
+      z-index: 9999; /* Ensures sidebar is on top when active */
+  }
+
+  /* Show Sidebar when Active */
+  #sidebar.active {
+      transform: translateX(0);
+      transition: margin-left var(--transition-speed) ease-in-out;
+  }
+
+  /* Sidebar Toggle Button */
+  #sidebar button#toggleSidebar {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    font-size: 1.5rem;
+    padding: 10px;
+    background: var(--primary-color, #333); /* Fallback if variable is missing */
+    color: var(--button-text, #fff); /* Fallback if variable is missing */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 9999; /* Ensure button is above everything */
+    display: block; /* Ensure button is not hidden */
+  }
+
+  /* Sidebar Links */
+  #sidebar nav ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap; /* Allow links to be in one row */
+      justify-content: center;
+      gap: 15px;
+  }
+
+  #sidebar nav ul li a {
+      font-size: 1rem;
+      padding: 8px 12px;
+      text-decoration: none;
+      display: inline-block;
+      color: var(--text-color);
+      background: var(--secondary-color);
+      border-radius: 5px;
+      transition: background 0.3s ease;
+  }
+
+  #sidebar nav ul li a:hover {
+      background: var(--primary-color);
+  }
 }
