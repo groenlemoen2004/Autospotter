@@ -2,80 +2,68 @@ document.addEventListener('DOMContentLoaded', () => {
     const floatingTab = document.getElementById('floatingTab');
     const closeTab = document.getElementById('closeTab');
     const vehicleName = document.getElementById('vehicleName');
-    const mainImage = document.getElementById('mainImage');
-    const thumbnailContainer = document.getElementById('thumbnailContainer');
-    const tabs = document.querySelectorAll('.tab');
-    const tabContents = document.querySelectorAll('.tab-content');
+    const vehicleImages = document.getElementById('vehicleImages');
+    const specsContent = document.getElementById('specsContent');
+    const applyButton = document.getElementById('applyButton');
+    const applicationForm = document.getElementById('applicationForm');
 
-    // Use event delegation for dynamically loaded content
-    document.addEventListener('click', (event) => {
-        if (event.target.classList.contains('view-button')) {
-            const vehicleCard = event.target.closest('.vehicle-card');
-            if (!vehicleCard) return;
-            const vehicleId = vehicleCard.getAttribute('data-id');
+    // Function to open the floating tab
+    window.viewDetails = (stockNumber) => {
+        fetch(`../php/getVehicleDetails.php?stock_number=${stockNumber}`) // Fixed backticks
+            .then(response => response.json())
+            .then(data => {
+                // Set vehicle name
+                vehicleName.textContent = `${data.make} ${data.model}`;
 
-            fetchVehicleDetails(vehicleId);
-            floatingTab.style.display = 'flex';
-        }
-    });
+                // Load images
+                const imagePaths = Array.from({ length: 3 }, (_, i) => `../images/${stockNumber}/${stockNumber}_${i + 1}.jpg`);
+                vehicleImages.innerHTML = `
+                    <div class="image-container">
+                        <img id="mainImage" src="${imagePaths[0]}" alt="${data.make} ${data.model}">
+                    </div>
+                    <div id="thumbnailContainer">
+                        ${imagePaths.map((path, index) => `
+                            <img class="thumbnail" src="${path}" alt="Thumbnail ${index + 1}" onclick="changeMainImage(this)">
+                        `).join('')}
+                    </div>
+                `;
 
-    // Close floating tab
+                // Load vehicle details
+                specsContent.innerHTML = `
+                    <p><strong>Year:</strong> ${data.year_model}</p>
+                    <p><strong>Odometer:</strong> ${data.odometer} km</p>
+                    <p><strong>Price:</strong> R${data.selling_price}</p>
+                    <p><strong>Colour:</strong> ${data.colour}</p>
+                    <p><strong>Body Style:</strong> ${data.body_style}</p>
+                    <p><strong>Fuel Type:</strong> ${data.fuel_type}</p>
+                    <p><strong>Transmission:</strong> ${data.transmission}</p>
+                `;
+
+                // Show the floating tab
+                floatingTab.style.display = 'flex';
+            });
+    };
+
+    // Function to change the main image
+    window.changeMainImage = (thumbnail) => {
+        const mainImage = document.getElementById('mainImage');
+        mainImage.src = thumbnail.src;
+    };
+
+    // Close the floating tab
     closeTab.addEventListener('click', () => {
         floatingTab.style.display = 'none';
     });
 
-    // Tab functionality
-    tabs.forEach((tab, index) => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('active'));
-            tabContents.forEach(tc => tc.classList.remove('active'));
-            tab.classList.add('active');
-            tabContents[index].classList.add('active');
-        });
+    // Show application form
+    applyButton.addEventListener('click', () => {
+        applicationForm.style.display = 'block';
     });
 
-    function fetchVehicleDetails(vehicleId) {
-        fetch(`../php/get_vehicle_details.php?id=${vehicleId}`)
-            .then(response => response.json())
-            .then(data => {
-                vehicleName.textContent = `${data.make} ${data.model}`;
-
-                // Update main image
-                if (data.images.length > 0) {
-                    mainImage.src = data.images[0];
-                    mainImage.alt = `${data.make} ${data.model}`;
-
-                    // Populate thumbnails
-                    thumbnailContainer.innerHTML = data.images.map(image =>
-                        `<img src="${image}" alt="${data.make}" class="thumbnail">`
-                    ).join('');
-
-                    // Add click event to thumbnails
-                    document.querySelectorAll('.thumbnail').forEach(img => {
-                        img.addEventListener('click', () => {
-                            mainImage.src = img.src;
-                        });
-                    });
-                } else {
-                    mainImage.src = '../img/Logo.jpg';
-                }
-
-                document.getElementById('specsContent').innerHTML = `
-                    <p>Price: ${number_format(data.price)}</p>
-                    <p>Year: ${data.year}</p>
-                    <p>Mileage: ${data.mileage} km</p>
-                    <p>Color: ${data.color}</p>
-                    <p>Transmission: ${data.transmission}</p>
-                    <p>Engine: ${data.engine}</p>
-                    <p>Fuel Type: ${data.fuel_type}</p>
-                `;
-                document.getElementById('serviceHistoryContent').innerHTML = `<p>${data.service_history}</p>`;
-                document.getElementById('additionalInfoContent').innerHTML = `<p>${data.additional_info}</p>`;
-            })
-            .catch(error => console.error('Error fetching vehicle details:', error));
-    }
-
-    function number_format(number) {
-        return new Intl.NumberFormat('en-ZA', { style: 'currency', currency: 'ZAR' }).format(number);
-    }
+    // Handle form submission
+    document.getElementById('applyForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Application submitted successfully!');
+        applicationForm.style.display = 'none';
+    });
 });

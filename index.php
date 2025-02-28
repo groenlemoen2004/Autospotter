@@ -92,19 +92,5 @@
     <p>&copy; 2025 AutoSpotter.co.za. All Rights Reserved.</p>
 </footer>
 <script src="../js/sidebar.js"></script>
-<script src="../js/floating-tab.js"></script>
-<script>
-    // Auto-rotate slider
-    let currentSlide = 0;
-    const slides = document.querySelectorAll(".slider img");
-
-    function changeSlide() {
-        slides[currentSlide].classList.remove("active");
-        currentSlide = (currentSlide + 1) % slides.length;
-        slides[currentSlide].classList.add("active");
-    }
-    
-    setInterval(changeSlide, 2000); // Rotate every 2 seconds
-</script>
 </body>
 </html>

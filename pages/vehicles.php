@@ -232,25 +232,76 @@ include '../php/db.php';
         </div>
     </div>
 
-    <div id="floatingTab" class="floating-tab">
-        <div class="floating-tab-content">
-            <span class="close-btn" id="closeTab">&times;</span>
-            <h2 id="vehicleName" class="vehicle-name"></h2>
-            <div id="vehicleImages" class="vehicle-images"></div>
-            <div class="tab-container">
-                <div class="tab active">Specs</div>
-                <div class="tab">Service History</div>
-                <div class="tab">Additional Info</div>
-            </div>
-            <div id="specsContent" class="tab-content active"></div>
-            <div id="serviceHistoryContent" class="tab-content"></div>
-            <div id="additionalInfoContent" class="tab-content"></div>
-            <button id="applyButton">Apply Now</button>
+    <div id="floatingTab" class="floating-tab" style="display: none;">
+    <div class="floating-tab-content">
+        <span class="close-btn" id="closeTab">&times;</span>
+        <h2 id="vehicleName" class="vehicle-name"></h2>
+        <div id="vehicleImages" class="vehicle-images"></div>
+        <div class="tab-container">
+            <div class="tab active">Specs</div>
+            <div class="tab">Service History</div>
+            <div class="tab">Additional Info</div>
         </div>
+        <div id="specsContent" class="tab-content active"></div>
+        <div id="serviceHistoryContent" class="tab-content"></div>
+        <div id="additionalInfoContent" class="tab-content"></div>
+        <button id="applyButton">Apply Now</button>
     </div>
+</div>
 
+    <div id="applicationForm" style="display: none;">
+    <h2>Apply Now</h2>
+    <form id="applyForm">
+        <div class="form-group">
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" name="fullName" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+        </div>
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required>
+        </div>
+        <div class="form-group">
+            <label for="employmentStatus">Employment Status:</label>
+            <select id="employmentStatus" name="employmentStatus" required>
+                <option value="employed">Employed</option>
+                <option value="self-employed">Self-Employed</option>
+                <option value="unemployed">Unemployed</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="monthlyIncome">Monthly Income (R):</label>
+            <input type="number" id="monthlyIncome" name="monthlyIncome" required>
+        </div>
+        <div class="form-group">
+            <label for="loanAmount">Loan Amount (R):</label>
+            <input type="number" id="loanAmount" name="loanAmount" required>
+        </div>
+        <div class="form-group">
+            <label for="loanDuration">Loan Duration (Months):</label>
+            <input type="number" id="loanDuration" name="loanDuration" required>
+        </div>
+        <div class="form-group">
+            <label for="creditScore">Credit Score:</label>
+            <input type="number" id="creditScore" name="creditScore" required>
+        </div>
+        <div class="form-group">
+            <label for="comments">Additional Comments:</label>
+            <textarea id="comments" name="comments" rows="4"></textarea>
+        </div>
+        <button type="submit">Submit Application</button>
+    </form>
+</div>
     <script src="../js/sidebar.js"></script>
     <script src="../js/floating-tab.js"></script>
+
 </body>
 <footer>
     <p>&copy; 2025 AutoSpotter.co.za. All Rights Reserved.</p>
