@@ -249,7 +249,7 @@ $theme = isset($_SESSION['theme']) ? $_SESSION['theme'] : 'light';
             if ($images && count($images) > 0) {
               $imagePath = $images[0];
             } else {
-              $imagePath = "../img/vehicles/default.jpg"; // Default image path
+              $imagePath = "../img/pages/Logo.jpg"; // Default image path
             }
             ?>
             <div class="vehicle-card">
